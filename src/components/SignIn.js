@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function SignIn() {
+export default function SignIn({ name, setName }) {
 
-    const [text, setText] = useState("");
     return (
         <div className="global">
             <div className="">
                 <h2>ようこそ</h2>
                 <div className="input-area">
-                    <input value={text} onChange={(e) => setText(e.target.value)} placeholder="ニックネーム" />
-                    {text && (<span>ニックネーム</span>)}
+                    <input value={name} onChange={(e) => setName(e.target.value)} placeholder="ニックネーム" />
+                    {name && (<span>ニックネーム</span>)}
                 </div><br />
 
-                <div className="start-text">はじめる</div>
-                <div className="copy-right">&copy;akio</div>
+                <div className={`start-text ${!name && "disable"}`}>はじめる</div>
+                <div className="copy-right">&copy;{name}</div>
             </div>
 
             <style jsx>{`
@@ -55,6 +54,11 @@ export default function SignIn() {
                     display:inline-block;
                     padding:7px 150px;
                     margin:20px 0 0 0;
+                    cursor:pointer;
+                }
+                .disable{
+                    background-color:gray;
+                    cursor:not-allowed;
                 }
                 .copy-right{
                     margin:40px 0 0 0;
