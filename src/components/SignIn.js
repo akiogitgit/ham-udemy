@@ -7,11 +7,14 @@ export default function SignIn({ name, setName }) {
             <div className="">
                 <h2>ようこそ</h2>
                 <div className="input-area">
-                    <input value={name} onChange={(e) => setName(e.target.value)} placeholder="ニックネーム" />
+                    <input value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="ニックネーム"
+                    />
                     {name && (<span>ニックネーム</span>)}
                 </div><br />
 
-                <div className={`start-text ${!name && "disable"}`}>はじめる</div>
+                <button className={`start-text ${!name && "disable"}`} disabled={!name}>はじめる</button>
                 <div className="copy-right">&copy;{name}</div>
             </div>
 
@@ -29,7 +32,10 @@ export default function SignIn({ name, setName }) {
                     width:350px;
                     padding:10px 0 0 0;
                     outline:none;
-                    border:1px solid black;
+                    border:1px solid gray;
+                }
+                .input-area input:focus{
+                    border:2px solid blue;
                 }
                 .input-area input::placeholder{
                     transform:translate(15px,-5px)scale(1);
