@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SignIn({ name, setName }) {
-
+    const [string, setString] = useState("");
     return (
         <div className="global">
             <div className="">
                 <h2>ようこそ</h2>
                 <div className="input-area">
-                    <input value={name}
-                        onChange={(e) => setName(e.target.value)}
+                    <input value={string}
+                        onChange={(e) => setString(e.target.value)}
                         placeholder="ニックネーム"
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                            }
+                        }}
                     />
-                    {name && (<span>ニックネーム</span>)}
+                    {string && (<span>ニックネーム</span>)}
                 </div><br />
 
-                <button className={`start-text ${!name && "disable"}`} disabled={!name}>はじめる</button>
-                <div className="copy-right">&copy;{name}</div>
+                <button className={`start-text ${!string && "disable"}`} disabled={!string} onClick={() => setName(string)}>はじめる</button>
+                <div className="copy-right">&copy;{string}</div>
             </div>
 
             <style jsx>{`
