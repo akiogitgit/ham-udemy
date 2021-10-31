@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Gravater from "../gravatar";
 import pushMessage from "../Firebase";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+
 export default function MessageInputField({ name }) {
     const [text, setText] = useState("");
 
@@ -30,6 +33,7 @@ export default function MessageInputField({ name }) {
                         pushMessage({ name: "akio", text });
                         setText("");
                     }}>送信</button>
+                <FontAwesomeIcon icon={faPaperPlane} />
             </div>
         </div>
     )

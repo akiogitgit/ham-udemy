@@ -1,11 +1,24 @@
 import firebase from "firebase";
+
+// .env.localに firebase の環境変数を書いて、引っ張ってくる
+const {
+    REACT_APP_FIREBASE_API_KEY,
+    REACT_APP_FIREBASE_AUTH_DOMAIN,
+    REACT_APP_FIREBASE_DATABASE_URL,
+    REACT_APP_FIREBASE_PROJECT_ID,
+    REACT_APP_FIREBASE_STORAGE_BUCKET,
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    REACT_APP_FIREBASE_APP_ID,
+} = process.env;
+
 const firebaseConfig = {
-    apiKey: "AIzaSyA26XdODBQbRzJCtjYRsZtyCuHpqyft-Qg",
-    authDomain: "idobatakaigi-with-ham-57461.firebaseapp.com",
-    projectId: "idobatakaigi-with-ham-57461",
-    storageBucket: "idobatakaigi-with-ham-57461.appspot.com",
-    messagingSenderId: "54228631634",
-    appId: "1:54228631634:web:e7ae46683caff543949f8b"
+    apiKey: REACT_APP_FIREBASE_API_KEY,
+    authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: REACT_APP_FIREBASE_APP_ID,
 };
 
 // 初期化？
@@ -13,9 +26,9 @@ firebase.initializeApp(firebaseConfig);
 // Realtime Database全体
 const database = firebase.database();
 //その中のmessages
-const messageRef = database.ref("messages");
+const messagesRef = database.ref("messages");
 
 // これを呼び出せばFirebase　にpushされる
 export default function pushMessage({ name, text }) {
-    messageRef.push({ name, text });
+    messagesRef.push({ name, text });
 };
