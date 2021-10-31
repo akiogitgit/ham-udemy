@@ -8,7 +8,7 @@ export default () => {
   const [name, setName] = useState("");
   return (
     <div>
-      {config.signInEnabled && name ? <SignIn name={name} setName={setName} /> :
+      {!name ? <SignIn name={name} setName={setName} /> :
         <Main name={name} />
       }
     </div>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { messagesRef } from "../Firebase";
+import Gravater from "../gravatar";
 
 export default function MessageList({ name }) {
     const [messages, setMessages] = useState([]);
+    const avatarPath = Gravater(name);
 
     //  key: -MnGSewevMll2O8qdksf, value: {name: 'akio', text: 'こんちくわ'} このデータを
     // {key: -MnGSewevMll2O8qdksf, name: 'akio', text: 'こんちくわ'}　　　　　こうしたい
@@ -24,26 +26,30 @@ export default function MessageList({ name }) {
     }, [])
 
     return (
-        <div>
+        <div style={{ margin: "0 0 70px 0" }}>
             <section>
-                <div className="flex">
-                    <div className="avatar">
-                        <img src="http://unsplash.it/100" alt="" />
-                    </div>
-                    <div className="talk">
-                        <h4 style={{ padding: "0px 20px" }}>name{name}</h4>
-                        <div style={{ padding: "0px 20px 10px 20px" }}>私は、今どこにあるかと踏みしめた足跡をなんども見つめ返す</div>
-                    </div>
-                </div>
-                {messages.map((e) => (
-                    <div className="flex">
-                        <div className="avatar">
-                            <img src="http://unsplash.it/100" alt="" />
-                        </div>
-                        <div className="talk">
-                            <h4 style={{ padding: "0px 20px" }}>{e.name}</h4>
-                            <div style={{ padding: "0px 20px 10px 20px" }}>{e.text}</div>
-                        </div>
+                {messages.map((message) => (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        {message.name === name ?
+                            <div style={{ display: "flex", justifyContent: "flex-end", marginRight: "20px" }}>
+                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", transform: "translate(-20px,-12px)" }}>
+                                    <p style={{ display: "flex", justifyContent: "flex-end" }}>{message.name}</p>
+                                    <div style={{ padding: "10px", marginLeft: "20px", border: "1px solid gray", borderRadius: "10px", overflowWrap: "break-word", maxWidth: "300px", transform: "translate(0,-8px)" }}>{message.text}</div>
+                                </div>
+                                <div style={{ height: "70px", width: "70px" }}>
+                                    <img src={Gravater(message.name)} alt="" />
+                                </div>
+                            </div> :
+
+                            <div style={{ display: "flex" }}>
+                                <div style={{ height: "70px", width: "70px" }}>
+                                    <img src={Gravater(message.name)} alt="" />
+                                </div>
+                                <div style={{ display: "flex", flexDirection: "column", transform: "translate(20px,-12px)" }}>
+                                    <p>{message.name}</p>
+                                    <div style={{ padding: "10px", border: "1px solid gray", borderRadius: "10px", overflowWrap: "break-word", width: "100%", maxWidth: "600px", transform: "translate(0,-8px)" }}>{message.text}</div>
+                                </div>
+                            </div>}
                     </div>
                 ))}
             </section>
@@ -51,8 +57,7 @@ export default function MessageList({ name }) {
             <style jsx>{`
                 .talk{
                     border:1px solid gray;
-                    border-radius:20px;
-                    margin:0 0 20px 10px;
+                    border-radius:10px;
                     width:50%;
                     max-width:400px;
                 }
@@ -61,9 +66,6 @@ export default function MessageList({ name }) {
                     width:100px;
                     height:100px;
                     border-radius:999px;
-                }
-                .flex{
-                    display:flex;
                 }
                 `}</style>
         </div>

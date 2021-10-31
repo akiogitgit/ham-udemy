@@ -25,7 +25,7 @@ export default function MessageInputField({ name }) {
                     onChange={(e) => setText(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && text) {
-                            pushMessage({ name: "akio", text });
+                            pushMessage({ name, text });
                             setText("");
                         }
                     }} />
@@ -33,7 +33,7 @@ export default function MessageInputField({ name }) {
                     style={{ border: "none", fontSize: "40px", backgroundColor: "white", transform: "rotate(45deg)" }}
                     disabled={!text}
                     onClick={() => {
-                        pushMessage({ name: "akio", text });
+                        pushMessage({ name, text });
                         setText("");
                         inputEL.current.focus();
                     }}>

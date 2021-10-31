@@ -12,13 +12,19 @@ export default function SignIn({ name, setName }) {
                         placeholder="ニックネーム"
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
+                                setName(string);
                             }
                         }}
                     />
                     {string && (<span>ニックネーム</span>)}
                 </div><br />
 
-                <button className={`start-text ${!string && "disable"}`} disabled={!string} onClick={() => setName(string)}>はじめる</button>
+                <button
+                    className={`start-text ${!string && "disable"}`}
+                    disabled={!string}
+                    onClick={() => setName(string)}>
+                    はじめる
+                </button>
                 <div className="copy-right">&copy;{string}</div>
             </div>
 
