@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { messagesRef } from "../Firebase";
 
 export default function MessageList({ name }) {
+    const [messages, setMessages] = useState([]);
+
+    //  key: -MnGSewevMll2O8qdksf, value: {name: 'akio', text: 'こんちくわ'} このデータを
+    // {key: -MnGSewevMll2O8qdksf, name: 'akio', text: 'こんちくわ'}　　　　　こうしたい
+
+    // orderByKeyをつけることで、時系列準で出る
+    // order でkeyの並び替え、limit 個数制限クエリ
+    useEffect(() => {
+        messagesRef.orderByKey().limitToLast(100).on("value", (snapshot) => {
+            const messages = snapshot.val();
+            if (messages === null) return;//メッセージが0の時にエラーにならない
+            const entries = Object.entries(messages);
+            const newMessages = entries.map((entry) => {
+                const [key, nameAndText] = entry;
+                return { key, ...nameAndText };
+            });
+            console.log(newMessages);
+            setMessages(newMessages);
+        });
+    }, [])
+
     return (
         <div>
             <section>
@@ -13,10 +35,17 @@ export default function MessageList({ name }) {
                         <div style={{ padding: "0px 20px 10px 20px" }}>私は、今どこにあるかと踏みしめた足跡をなんども見つめ返す</div>
                     </div>
                 </div>
-
-                <div style={{ border: "1px solid black", display: "inline-block", width: "200px", wordBreak: "break-all" }}>
-                    <div style={{ padding: "10px", display: "inline-block" }}>anpananpananpananpananpananpananpananpananpananpanpananpananpananpananpananpananpananpananpananpanan</div>
-                </div>
+                {messages.map((e) => (
+                    <div className="flex">
+                        <div className="avatar">
+                            <img src="http://unsplash.it/100" alt="" />
+                        </div>
+                        <div className="talk">
+                            <h4 style={{ padding: "0px 20px" }}>{e.name}</h4>
+                            <div style={{ padding: "0px 20px 10px 20px" }}>{e.text}</div>
+                        </div>
+                    </div>
+                ))}
             </section>
 
             <style jsx>{`

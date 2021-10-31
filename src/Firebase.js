@@ -26,7 +26,7 @@ firebase.initializeApp(firebaseConfig);
 // Realtime Database全体
 const database = firebase.database();
 //その中のmessages
-const messagesRef = database.ref("messages");
+export const messagesRef = database.ref("messages");
 
 // これを呼び出せばFirebase　にpushされる
 export default function pushMessage({ name, text }) {
