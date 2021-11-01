@@ -7,7 +7,9 @@ export default function SignIn({ name, setName }) {
             <div className="">
                 <h2>ようこそ</h2>
                 <div className="input-area">
-                    <input value={string}
+                    <input
+                        value={string}
+                        autoFocus
                         onChange={(e) => setString(e.target.value)}
                         placeholder="ニックネーム"
                         onKeyDown={(e) => {
